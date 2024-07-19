@@ -15,27 +15,53 @@ function App() {
         alert(e);
       }
     }
-    getPuppies(); 
+    getPuppies();
   },[])
 
-  return (
-    <>
-      <h1>Puppies for Adoption</h1>
+  const [onePuppy, setOnePuppy] = useState({})
+  
+  const getPuppyDetails = async(puppyID) => {
+    try {
+      const response = await fetch(`https://fsa-puppy-bowl.herokuapp.com/api/2406-FTB-ET-WEB-FT/players/${puppyID}`);
+      const result = await response.json();
+      const puppyFromAPI = result.data.player
+      setOnePuppy(puppyFromAPI);
+    } catch (e) {
+      alert(e);
+    }
+  }
 
-      <ul>
-      {
-        puppies.map((puppy) => {
-          return (
+  return (
             <>
-              <li key={puppy.id}>{puppy.name}</li>
-              <img src={puppy.imageUrl} alt="Photo of a puppy"/>
+              {onePuppy.name ? 
+                <>
+                  <h2>{onePuppy.name}</h2>
+                  <h4>Breed: {onePuppy.breed}</h4>
+                  <img src={onePuppy.imageUrl} alt="Photo of a puppy" />
+                  <button onClick={() => {setOnePuppy({})}}>Back</button>
+                </> :
+
+                <>
+                  <h1>Puppies for Adoption</h1>
+                  
+                  <ul>
+                  {
+                    puppies.map((puppy) => {
+                      return (
+                        <>
+                        <li onClick={() => { getPuppyDetails(puppy.id)}}>
+                        <h3>{puppy.name}</h3>
+                        <img src={puppy.imageUrl} alt="Photo of a puppy" />
+                        </li>
+                        </>
+                      )
+                    })
+                  }
+                  </ul>
+                </>
+              }
             </>
           )
-        })
-      }
-      </ul>
-    </>
-  )
 }
 
 export default App
