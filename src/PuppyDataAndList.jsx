@@ -35,7 +35,7 @@ function PuppyDataAndList( {LogInStatus}) {
   return (
             <>
               {onePuppy.name ? 
-                < PuppyDetails onePuppy={onePuppy} setOnePuppy={setOnePuppy}/> :
+                < PuppyDetails onePuppy={onePuppy} setOnePuppy={setOnePuppy} LogInStatus={LogInStatus}/> :
 
                 <>
                   <h1>Puppies for Adoption</h1>
@@ -48,10 +48,9 @@ function PuppyDataAndList( {LogInStatus}) {
                           <li onClick={() => { getPuppyDetails(puppy.id)}}>
                             <h3>{puppy.name}</h3>
                             <img src={puppy.imageUrl} alt="Photo of a puppy" />
-              
-                            { LogInStatus === true ? <button>Adopt Now</button>: null}
-                            
                           </li>
+  
+                          { LogInStatus === true ? <button>Adopt Now</button>: null}
                         </>
                       )
                     })
