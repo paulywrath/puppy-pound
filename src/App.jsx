@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import PuppyDetails from './PuppyDetails';
 
 function App() {
 
@@ -34,12 +35,7 @@ function App() {
   return (
             <>
               {onePuppy.name ? 
-                <>
-                  <h2>{onePuppy.name}</h2>
-                  <h4>Breed: {onePuppy.breed}</h4>
-                  <img src={onePuppy.imageUrl} alt="Photo of a puppy" />
-                  <button onClick={() => {setOnePuppy({})}}>Back</button>
-                </> :
+                < PuppyDetails onePuppy={onePuppy} setOnePuppy={setOnePuppy}/> :
 
                 <>
                   <h1>Puppies for Adoption</h1>
