@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import PuppyDetails from './PuppyDetails';
 
-function PuppyDataAndList() {
+function PuppyDataAndList( {LogInStatus}) {
 
   const [puppies, setPuppies] = useState([]);
 
@@ -35,7 +35,7 @@ function PuppyDataAndList() {
   return (
             <>
               {onePuppy.name ? 
-                < PuppyDetails onePuppy={onePuppy} setOnePuppy={setOnePuppy}/> :
+                < PuppyDetails onePuppy={onePuppy} setOnePuppy={setOnePuppy} LogInStatus={LogInStatus}/> :
 
                 <>
                   <h1>Puppies for Adoption</h1>
@@ -45,10 +45,12 @@ function PuppyDataAndList() {
                     puppies.map((puppy) => {
                       return (
                         <>
-                        <li onClick={() => { getPuppyDetails(puppy.id)}}>
-                        <h3>{puppy.name}</h3>
-                        <img src={puppy.imageUrl} alt="Photo of a puppy" />
-                        </li>
+                          <li onClick={() => { getPuppyDetails(puppy.id)}}>
+                            <h3>{puppy.name}</h3>
+                            <img src={puppy.imageUrl} alt="Photo of a puppy" />
+                          </li>
+  
+                          { LogInStatus === true ? <button>Adopt Now</button>: null}
                         </>
                       )
                     })
